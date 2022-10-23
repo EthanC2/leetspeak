@@ -22,7 +22,7 @@ pub fn translate(text: &str) -> String {
     text.chars()
         .into_iter()
         .fold(String::from(""), |accum, c|
-            match LEETSPEAK_TABLE_COMPLETE.get(&c) {
+            match LEETSPEAK_TABLE_COMPLETE.get(&c.to_ascii_lowercase()) {
                 Some(mapping) => accum + *mapping.choose(&mut rng)
                                                            .expect("no array in the table is empty"),
                 None => accum + c.to_string().as_str()
@@ -54,7 +54,7 @@ pub enum Level {
 /// Usage:
 /// ```
 /// let text = "sphinx of black quartz, judge my vow";
-/// let translation = leetspeak::translate_with_level(text, Level::One);
+/// let translation = leetspeak::translate_with_level(text, leetspeak::Level::One);
 /// assert_eq!(translation, r#"5ph1nx 0f 814ck qu427z, jud93 my v0w"#);
 /// ```
 pub fn translate_with_level(text: &str, level: Level) -> String {
@@ -68,7 +68,7 @@ pub fn translate_with_level(text: &str, level: Level) -> String {
     text.chars()
         .into_iter()
         .fold(String::from(""), |accum, c| 
-            match translation_table.get(&c) {
+            match translation_table.get(&c.to_ascii_lowercase()) {
                 Some(s) => accum + *s,
                 None => accum + c.to_string().as_str(),
             }
@@ -99,7 +99,7 @@ pub fn translate_custom(text: &str, table: HashMap<char,String>) -> String {
     text.chars()
         .into_iter()
         .fold(String::from(""), |accum, c| 
-        match table.get(&c) {
+        match table.get(&c.to_ascii_lowercase()) {
                 Some(s) => accum + s,
                 None => accum + c.to_string().as_str(),
             }

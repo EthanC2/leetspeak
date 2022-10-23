@@ -50,3 +50,8 @@ fn translate_custom() {
     let translation = leetspeak::translate_custom(text, mapping);
     assert_eq!(translation, r#"ehs|*hinx of bl4<k qu4rt7_, judg€ /\/\y vovv"#);
 }
+
+#[test]
+fn case_insensitivity() {
+    assert_eq!(leetspeak::translate_with_level("sphinx of black quartz, judge my vow", Level::Three), leetspeak::translate_with_level("sphiNx oF BlacK quarTz, JudGe My VOW", Level::Three))
+}
