@@ -1,7 +1,7 @@
 use leetspeak::Level;
 
 #[test]
-fn translate_random() {
+fn translate_default() {
     /*
         Since `leetspeak::translate()` is a non-deterministic function, it
         cannot be tested using static data. So, I've just validated that it 
