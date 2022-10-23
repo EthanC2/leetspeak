@@ -5,7 +5,7 @@ use phf::phf_map;
     Level 1: 
     Basic leetspeak replaces some letters with single-digit numbers
 */
-pub const LEVEL1: phf::Map<char,&'static str> = phf_map!(
+pub const LEETSPEAK_TABLE_LEVEL1: phf::Map<char,&'static str> = phf_map!(
     'a' => "4",
     'b' => "8",
     'e' => "3",
@@ -28,7 +28,7 @@ pub const LEVEL1: phf::Map<char,&'static str> = phf_map!(
     I left out some of the weird/goth letters like 'q' and 'z'
     cause they're cool
 */
-pub const LEVEL2: phf::Map<char,&'static str> = phf_map!(
+pub const LEETSPEAK_TABLE_LEVEL2: phf::Map<char,&'static str> = phf_map!(
     'a' => "@",
     'b' => "8",
     'c' => "<",
@@ -59,7 +59,7 @@ pub const LEVEL2: phf::Map<char,&'static str> = phf_map!(
 
     Good luck reading this.
 */
-pub const LEVEL3: phf::Map<char,&'static str> = phf_map!(
+pub const LEETSPEAK_TABLE_LEVEL3: phf::Map<char,&'static str> = phf_map!(
     'a' => "@",
     'b' => "/3",
     'c' => "(",

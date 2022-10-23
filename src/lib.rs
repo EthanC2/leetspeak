@@ -2,12 +2,7 @@ mod translation_tables;
 
 use std::collections::HashMap;
 use rand::prelude::*;
-use crate::translation_tables::{LEVEL1, LEVEL2, LEVEL3, LEETSPEAK_TABLE_COMPLETE};
-
-/*
-    IMPL FOR LEVELERROR
-*/
-pub struct LevelError;
+use crate::translation_tables::{LEETSPEAK_TABLE_LEVEL1, LEETSPEAK_TABLE_LEVEL2, LEETSPEAK_TABLE_LEVEL3, LEETSPEAK_TABLE_COMPLETE};
 
 pub fn translate(text: &str) -> String {
     let mut rng = thread_rng();
@@ -23,31 +18,37 @@ pub fn translate(text: &str) -> String {
     )
 }
 
-pub fn translate_with_level(text: &str, level: &u8) -> Result<String, LevelError> {
+
+pub enum Level {
+    One,
+    Two,
+    Three
+}
+
+pub fn translate_with_level(text: &str, level: Level) -> String {
     let translation_table;
     match level {
-        1 => translation_table = LEVEL1,
-        2 => translation_table = LEVEL2,
-        3 => translation_table = LEVEL3,
-        _ => return Err(LevelError)
+        Level::One => translation_table = LEETSPEAK_TABLE_LEVEL1,
+        Level::Two => translation_table = LEETSPEAK_TABLE_LEVEL2,
+        Level::Three => translation_table = LEETSPEAK_TABLE_LEVEL3,
     }
 
-    Ok(text.chars()
+    text.chars()
         .into_iter()
         .fold(String::from(""), |accum, c| 
             match translation_table.get(&c) {
                 Some(s) => accum + *s,
                 None => accum + c.to_string().as_str()
             }
-        ))
+        )
 }
 
-pub fn translate_with_custom(text: &str, table: HashMap<char,&str>) -> String {
+pub fn translate_custom(text: &str, table: HashMap<char,String>) -> String {
     text.chars()
         .into_iter()
         .fold(String::from(""), |accum, c| 
         match table.get(&c) {
-                Some(s) => accum + *s,
+                Some(s) => accum + s,
                 None => accum + c.to_string().as_str()
             }
         )
