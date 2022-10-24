@@ -10,6 +10,8 @@ and custom leetspeak translation. Translations are based on [wikipedia/leet#orth
 Using this library is as simple as:
 
 ```rust
+use leetspeak::Level;
+
 let text = "sphinx of black quartz, judge my vow";
 
 // Random leetspeak translation
