@@ -1,7 +1,15 @@
 [package]
 name = "leetspeak"
+authors = ["Ethan Cox ethanrcox@gmail.com"]
 version = "0.1.0"
 edition = "2021"
+license = "GNU Affero General Public License v3.0"
+description = "random, non-random, and custom leetspeak translation functions"
+documentation = "https://docs.rs/leetspeak/"
+repository = "https://github.com/EthanC2/leetspeak"
+readme = "README.md"
+keywords = ["leetspeak", "translation"]
+categories = ["encoding"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
