@@ -1,9 +1,15 @@
 # leetspeak
+
+[![leetspeak crate](https://img.shields.io/crates/v/leetspeak.svg)](https://crates.io/crates/leetspeak)
+[![leetspeak documentation](https://docs.rs/leetspeak/badge.svg)](https://docs.rs/leetspeak)
+[![build status](https://github.com/EthanC2/leetspeak/workflows/Rust/badge.svg)](https://github.com/EthanC2/leetspeak/actions)
+![minimum rustc 1.64.0](https://img.shields.io/badge/rustc-1.64.0+-red.svg)
+
 *leetspeak* is a leetspeak translation library with support for random, non-random, 
-and custom leetspeak translation. Translations are based on [wikipedia/leet#orthography](https://en.wikipedia.org/wiki/Leet#Orthography) 
+and custom leetspeak translation. Translations are based on [wikipedia/leet#orthography](https://en.wikipedia.org/wiki/Leet#Orthography).
 Using this library is as simple as:
 
-```rs
+```rust
 let text = "sphinx of black quartz, judge my vow";
 
 // Random leetspeak translation
