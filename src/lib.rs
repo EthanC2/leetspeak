@@ -95,13 +95,13 @@ pub fn translate_with_level(text: &str, level: Level) -> String {
 ///    let translation = leetspeak::translate_custom(text, mapping);
 ///    assert_eq!(translation, r#"ehs|*hinx of bl4<k qu4rt7_, judg€ /\/\y vovv"#);
 ///```
-pub fn translate_custom(text: &str, table: HashMap<char,String>) -> String {
+pub fn translate_custom(text: &str, mapping: HashMap<char,String>) -> String {    
     text.chars()
         .into_iter()
-        .fold(String::from(""), |accum, c| 
-        match table.get(&c.to_ascii_lowercase()) {
-                Some(s) => accum + s,
-                None => accum + c.to_string().as_str(),
+        .fold(String::from(""), |accum, char| {
+            match mapping.get(&char) {
+                    Some(s) => accum + s,
+                    None => accum + char.to_string().as_str(),
             }
-        )
+        })
 }

@@ -55,3 +55,17 @@ fn translate_custom() {
 fn case_insensitivity() {
     assert_eq!(leetspeak::translate_with_level("sphinx of black quartz, judge my vow", Level::Three), leetspeak::translate_with_level("sphiNx oF BlacK quarTz, JudGe My VOW", Level::Three))
 }
+
+/// Previously, there was a problem where 
+#[test]
+fn custom_case_sensitivity() {
+    let text = "Say";
+    let mapping = std::collections::HashMap::from([
+        ('S', String::from("$")),
+        ('s', String::from("5")),
+        ('a', String::from("4")),
+    ]);
+
+    let translation = leetspeak::translate_custom(text, mapping);
+    assert_eq!(translation, "$4y");  //fails! `translate_custom()` changed 'S' to 's', which mapped it to '5' instead of '$'
+}
