@@ -5,7 +5,7 @@
 [![build status](https://github.com/EthanC2/leetspeak/workflows/Rust/badge.svg)](https://github.com/EthanC2/leetspeak/actions)
 ![minimum rustc 1.64.0](https://img.shields.io/badge/rustc-1.64.0+-red.svg)
 
-*leetspeak* is a leetspeak translation library with support for random, non-random, 
+*leetspeak* is a english-to-[leetspeak](https://www.howtogeek.com/443390/what-is-leet-speak-and-how-do-you-use-it/) translation library with support for random, non-random, 
 and custom leetspeak translation. Translations are based on [wikipedia/leet#orthography](https://en.wikipedia.org/wiki/Leet#Orthography).
 Using this library is as simple as:
 
