@@ -19,7 +19,7 @@ let random_translation = leetspeak::translate(text);
 let nonrandom_translation = leetspeak::translate_with_level(text, Level::One);
 assert_eq!(nonrandom_translation, r#"5ph1nx 0f 814ck qu427z, jud93 my v0w"#);
 
-//Custom leetspeak translation
+//Custom leetspeak translation. Characters not in the hashmap are not changed.
 let mapping = std::collections::HashMap::from([
     ('a', String::from("4")),
     ('c', String::from("<")),
