@@ -7,7 +7,7 @@ You may freely modify and redistribute this software under an [AGPL-3.0 license]
 
 # Code of Conduct
 All contributions and interactions are subject to the [code of conduct](https://github.com/EthanC2/leetspeak/blob/main/CODE_OF_CONDUCT.md). Violating the code of
-conduct may result in temporary or even permanent bans from the project.
+conduct may result in temporary or even permanent bans from the project. 
 
 # New contributor guide
 To get an overview of the project, read the [README](README.md). Here are some resources to help you get started with open source contributions:
