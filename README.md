@@ -38,5 +38,4 @@ assert_eq!(custom_translation, r#"ehs|*hinx of bl4<k qu4rt7_, judg€ /\/\y vovv
 # Contributing
 This is an open-source project and contributors are welcome!
 The repository is at [github.com: leetspeak](https://github.com/EthanC2/leetspeak) 
-and development plans/progress are documented at [github.com: leetspeak/projects](https://github.com/users/EthanC2/projects/5/views/1). If this library is missing a feature you would like, 
-feel free to make a suggestion.
+and development plans/progress are documented at [github.com: leetspeak/projects](https://github.com/users/EthanC2/projects/5/views/1). If this library is missing a feature you would like, feel free to [start a discussion](https://github.com/EthanC2/leetspeak/discussions) or develop a feature and [create a pull request](https://github.com/EthanC2/leetspeak/pulls).
