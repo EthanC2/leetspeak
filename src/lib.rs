@@ -16,10 +16,11 @@ use crate::translation_tables::{LEETSPEAK_TABLE_LEVEL1, LEETSPEAK_TABLE_LEVEL2, 
 /// let text = "sphinx of black quartz, judge my vow";
 /// let translation = leetspeak::translate(text);
 /// ```
-pub fn translate(text: &str) -> String {
+pub fn translate<S: AsRef<str>>(text: S) -> String {
     let mut rng = thread_rng();
 
-    text.chars()
+    text.as_ref()
+        .chars()
         .into_iter()
         .fold(String::from(""), |accum, c|
             match LEETSPEAK_TABLE_COMPLETE.get(&c.to_ascii_lowercase()) {
@@ -57,7 +58,7 @@ pub enum Level {
 /// let translation = leetspeak::translate_with_level(text, leetspeak::Level::One);
 /// assert_eq!(translation, r#"5ph1nx 0f 814ck qu427z, jud93 my v0w"#);
 /// ```
-pub fn translate_with_level(text: &str, level: Level) -> String {
+pub fn translate_with_level<S: AsRef<str>>(text: S, level: Level) -> String {
     let translation_table;
     match level {
         Level::One => translation_table = LEETSPEAK_TABLE_LEVEL1,
@@ -65,7 +66,8 @@ pub fn translate_with_level(text: &str, level: Level) -> String {
         Level::Three => translation_table = LEETSPEAK_TABLE_LEVEL3,
     }
 
-    text.chars()
+    text.as_ref()
+        .chars()
         .into_iter()
         .fold(String::from(""), |accum, c| 
             match translation_table.get(&c.to_ascii_lowercase()) {
@@ -95,8 +97,9 @@ pub fn translate_with_level(text: &str, level: Level) -> String {
 ///    let translation = leetspeak::translate_custom(text, mapping);
 ///    assert_eq!(translation, r#"ehs|*hinx of bl4<k qu4rt7_, judg€ /\/\y vovv"#);
 ///```
-pub fn translate_custom(text: &str, mapping: HashMap<char,String>) -> String {    
-    text.chars()
+pub fn translate_custom<S: AsRef<str>>(text: S, mapping: HashMap<char,String>) -> String {
+    text.as_ref()
+        .chars()
         .into_iter()
         .fold(String::from(""), |accum, char| {
             match mapping.get(&char) {

@@ -56,7 +56,9 @@ fn case_insensitivity() {
     assert_eq!(leetspeak::translate_with_level("sphinx of black quartz, judge my vow", Level::Three), leetspeak::translate_with_level("sphiNx oF BlacK quarTz, JudGe My VOW", Level::Three))
 }
 
-/// Previously, there was a problem where 
+/// Previously, there was a problem where `leetspeak::translate_custom()` ignored case sensitivity,
+/// casting all chars to lowercase, which prevented users from mapping letters like 's' and 'S' to
+/// different strings. This test ensures that case sensitivity is respected.
 #[test]
 fn custom_case_sensitivity() {
     let text = "Say";
@@ -67,5 +69,5 @@ fn custom_case_sensitivity() {
     ]);
 
     let translation = leetspeak::translate_custom(text, mapping);
-    assert_eq!(translation, "$4y");  //fails! `translate_custom()` changed 'S' to 's', which mapped it to '5' instead of '$'
+    assert_eq!(translation, "$4y");
 }
