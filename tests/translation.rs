@@ -47,7 +47,7 @@ fn translate_custom() {
     ]);
 
     let text = "sphinx of black quartz, judge my vow";
-    let translation = leetspeak::translate_custom(text, mapping);
+    let translation = leetspeak::translate_custom(text, mapping, false);
     assert_eq!(translation, r#"ehs|*hinx of bl4<k qu4rt7_, judg€ /\/\y vovv"#);
 }
 
@@ -68,6 +68,6 @@ fn custom_case_sensitivity() {
         ('a', String::from("4")),
     ]);
 
-    let translation = leetspeak::translate_custom(text, mapping);
+    let translation = leetspeak::translate_custom(text, mapping, false);
     assert_eq!(translation, "$4y");
 }
