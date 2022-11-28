@@ -7,18 +7,18 @@
 
 #[test]
 fn with_string() {
-    let string = String::from("what");
+    let string = String::from("ferris");
     let _translation = leetspeak::translate(string);
 }
 
 #[test]
 fn with_string_ref() {
-    let string_ref = &String::from("the dog");
+    let string_ref = &String::from("my");
     let _translation = leetspeak::translate(string_ref);
 }
 
 #[test]
 fn with_str() {
-    let str = "doin'?";
+    let str = "beloved";
     let _translation = leetspeak::translate(str);
 }

@@ -33,41 +33,11 @@ fn translate_level3() {
     assert_eq!(translation, r#"$|>/-/!|\|}{ ()/= /3|_@(|< 0_v@I2+7_, _]vcl(_+& /V\`/ \|()vv"#);
 }
 
-#[test]
-fn translate_custom() {
-    let mapping = std::collections::HashMap::from([
-        ('a', String::from("4")),
-        ('c', String::from("<")),
-        ('e', String::from("€")),
-        ('m', String::from(r#"/\/\"#)),
-        ('p', String::from("|*")),
-        ('s', String::from("ehs")),
-        ('w', String::from("vv")),
-        ('z', String::from("7_")),
-    ]);
-
-    let text = "sphinx of black quartz, judge my vow";
-    let translation = leetspeak::translate_custom(text, mapping, false);
-    assert_eq!(translation, r#"ehs|*hinx of bl4<k qu4rt7_, judg€ /\/\y vovv"#);
-}
-
+/// Built-in translate functions implicitly cast to ASCII lowercase so translations are 
+/// case-insensitive. This function verifies is proof.
 #[test]
 fn case_insensitivity() {
-    assert_eq!(leetspeak::translate_with_level("sphinx of black quartz, judge my vow", Level::Three), leetspeak::translate_with_level("sphiNx oF BlacK quarTz, JudGe My VOW", Level::Three))
-}
-
-/// Previously, there was a problem where `leetspeak::translate_custom()` ignored case sensitivity,
-/// casting all chars to lowercase, which prevented users from mapping letters like 's' and 'S' to
-/// different strings. This test ensures that case sensitivity is respected.
-#[test]
-fn custom_case_sensitivity() {
-    let text = "Say";
-    let mapping = std::collections::HashMap::from([
-        ('S', String::from("$")),
-        ('s', String::from("5")),
-        ('a', String::from("4")),
-    ]);
-
-    let translation = leetspeak::translate_custom(text, mapping, false);
-    assert_eq!(translation, "$4y");
+    let lhs = leetspeak::translate_with_level("sphinx of black quartz, judge my vow", Level::Three);
+    let rhs = leetspeak::translate_with_level("SPHINX OF BLACK QUARTZ, JUDGE MY VOW", Level::Three);
+    assert_eq!(lhs, rhs);
 }

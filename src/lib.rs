@@ -1,8 +1,8 @@
 mod translation_tables;
 
+use crate::translation_tables::{LEETSPEAK_TABLE_LEVEL1, LEETSPEAK_TABLE_LEVEL2, LEETSPEAK_TABLE_LEVEL3, LEETSPEAK_TABLE_COMPLETE};
 use std::collections::HashMap;
 use rand::prelude::*;
-use crate::translation_tables::{LEETSPEAK_TABLE_LEVEL1, LEETSPEAK_TABLE_LEVEL2, LEETSPEAK_TABLE_LEVEL3, LEETSPEAK_TABLE_COMPLETE};
 
 /// Translates `text` into leetspeak, returning a new string. Since each English letter
 /// is mapped to multiple leetspeak letters, each leetspeak letter is chosen from its mapping at random using
@@ -17,17 +17,20 @@ use crate::translation_tables::{LEETSPEAK_TABLE_LEVEL1, LEETSPEAK_TABLE_LEVEL2, 
 /// let translation = leetspeak::translate(text);
 /// ```
 pub fn translate<S: AsRef<str>>(text: S) -> String {
+    let mut translation = String::new();
     let mut rng = thread_rng();
 
-    String::from_iter(
-        text.as_ref()
+    text.as_ref()
         .chars()
-        .map(|ch|
-            match LEETSPEAK_TABLE_COMPLETE.get(&ch.to_ascii_lowercase()) {
-                Some(mapping) => String::from(*mapping.choose(&mut rng).expect("no array in the table is empty")),
-                None => ch.to_string()
-        })
-    )
+        .for_each(|ch| {
+            if let Some(mapping) = LEETSPEAK_TABLE_COMPLETE.get(&ch.to_ascii_lowercase()) {
+                translation.push_str(mapping.choose(&mut rng).expect("no array in the table is empty"));
+            } else {
+                translation.push(ch);
+            }
+        });
+
+    translation
 }
 
 /// The level determines the degree of translation. [`Level::One`] replaces a few common
@@ -59,22 +62,24 @@ pub enum Level {
 /// assert_eq!(translation, r#"5ph1nx 0f 814ck qu427z, jud93 my v0w"#);
 /// ```
 pub fn translate_with_level<S: AsRef<str>>(text: S, level: Level) -> String {
-    let translation_table = match level {
+    let mut translation = String::new();
+    let mapping = match level {
         Level::One => LEETSPEAK_TABLE_LEVEL1,
         Level::Two =>  LEETSPEAK_TABLE_LEVEL2,
         Level::Three => LEETSPEAK_TABLE_LEVEL3,
     };
 
-    let iter = text.as_ref()
+    text.as_ref()
         .chars()
-        .map(|ch| 
-            match translation_table.get(&ch.to_ascii_lowercase()) {
-                Some(s) => s.to_string(),
-                None => ch.to_string(),
+        .for_each(|ch| 
+            if let Some(string) = mapping.get(&ch.to_ascii_lowercase()) {
+                translation.push_str(string);
+            } else {
+                translation.push(ch);
             }
         );
 
-    String::from_iter(iter)
+    translation
 }
 
 /// Translates `text` into leetspeak using a custom mapping table (type `HashMap<char,String>`),
@@ -94,47 +99,32 @@ pub fn translate_with_level<S: AsRef<str>>(text: S, level: Level) -> String {
 ///]);
 ///
 ///    let text = "sphinx of black quartz, judge my vow";
-///    let translation = leetspeak::translate_custom(text, mapping, true);
+///    let translation = leetspeak::translate_custom(text, &mapping, &true);
 ///    assert_eq!(translation, r#"ehs|*hinx of bl4<k qu4rt7_, judg€ /\/\y vovv"#);
 ///```
-pub fn translate_custom<S: AsRef<str>>(text: S, mapping: HashMap<char,String>, case_insensitive: bool) -> String {
-    let iter = text.as_ref()
+pub fn translate_custom<S: AsRef<str>>(text: S, mapping: &HashMap<char,String>, case_sensitive: &bool) -> String {
+    let mut translation = String::new();
+    
+    text.as_ref()
         .chars()
-        .map(|ch| {
-            map_with_case(&ch, &mapping, &case_insensitive)
+        .for_each(|ch| {
+            if let Some(string) = mapping.get(&ch) {
+                translation.push_str(string);
+            } else if !*case_sensitive {
+                if let Some(string) = mapping.get(&invert_ascii_case(&ch)) {
+                    translation.push_str(string);
+                }
+            } else {
+                translation.push(ch);
+            }
         });
 
-    String::from_iter(iter)
+    translation
 }
 
-fn map_with_case(ch: &char, mapping: &HashMap<char,String>, case_insensitive: &bool) -> String {
-    /*
-        if CHAR in TABLE:
-            return TABLE[CHAR]
-        else
-            if CASE_INSENSITIVE AND INVERT_CASE(CHAR) in TABLE:
-                return TABLE[INVERT_CASE(CHAR)]
-            return NONE
-
-    */
-
-    if let Some(string) = mapping.get(&ch) {
-        return string.clone();
-    }
-
-    if *case_insensitive {
-        if let Some(string) = mapping.get(&invert_ascii_case(&ch)) {
-            return string.clone();
-        }
-    }
-
-    String::from(*ch)
-}
-
-
-///Inverts the case of an ASCII character.
+/// Inverts the case of an ASCII character.
 /// 'A' => 'a' and 'a' => 'A'
-#[inline]
+#[inline(always)]
 fn invert_ascii_case(ch: &char) -> char {
     if ch.is_ascii_lowercase() {
         ch.to_ascii_uppercase()
@@ -142,9 +132,3 @@ fn invert_ascii_case(ch: &char) -> char {
         ch.to_ascii_lowercase()
     }
 }
-
-// #[inline]
-// fn char_to_str(ch: &char) -> &str {
-//     let buffer = [0; 4];
-//     ch.encode_utf8(&mut buffer)
-// }
