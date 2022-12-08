@@ -58,10 +58,10 @@ pub enum Level {
 /// Usage:
 /// ```
 /// let text = "sphinx of black quartz, judge my vow";
-/// let translation = leetspeak::translate_with_level(text, leetspeak::Level::One);
+/// let translation = leetspeak::translate_with_level(text, &leetspeak::Level::One);
 /// assert_eq!(translation, r#"5ph1nx 0f 814ck qu427z, jud93 my v0w"#);
 /// ```
-pub fn translate_with_level<S: AsRef<str>>(text: S, level: Level) -> String {
+pub fn translate_with_level<S: AsRef<str>>(text: S, level: &Level) -> String {
     let mut translation = String::new();
     let mapping = match level {
         Level::One => LEETSPEAK_TABLE_LEVEL1,

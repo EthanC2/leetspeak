@@ -12,13 +12,13 @@ Using this library is as simple as:
 ```rust
 use leetspeak::Level;
 
-let text = String::from("sphinx of black quartz, judge my vow");
+let text = "sphinx of black quartz, judge my vow";
 
 // Random leetspeak translation
 let random_translation = leetspeak::translate(text);
 
 // Non-random leetspeak translation, levels 1-3
-let nonrandom_translation = leetspeak::translate_with_level(text, Level::One);
+let nonrandom_translation = leetspeak::translate_with_level(text, &Level::One);
 assert_eq!(nonrandom_translation, r#"5ph1nx 0f 814ck qu427z, jud93 my v0w"#);
 
 //Custom leetspeak translation (case-insensitive). Characters not in the hashmap are not changed.
@@ -33,7 +33,7 @@ let mapping = std::collections::HashMap::from([
     ('z', String::from("7_")),
 ]);
 
-let custom_translation = leetspeak::translate_custom(text, mapping);
+let custom_translation = leetspeak::translate_custom(text, mapping, &false);
 assert_eq!(custom_translation, r#"ehs|*hinx of bl4<k qu4rt7_, judg€ /\/\y vovv"#);
 ```
 

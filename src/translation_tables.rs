@@ -1,6 +1,5 @@
 use phf::phf_map;
 
-
 /* 
     Level 1: 
     Basic leetspeak replaces some letters with single-digit numbers

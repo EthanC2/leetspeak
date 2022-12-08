@@ -1,7 +1,7 @@
 [package]
 name = "leetspeak"
-authors = ["Ethan Cox ethanrcox@gmail.com"]
-version = "0.1.2"
+authors = ["Ethan Cox ethanrcox@protonmail.com"]
+version = "0.2.0"
 edition = "2021"
 license = "AGPL-3.0-only"
 description = "random, non-random, and custom leetspeak translation functions"
